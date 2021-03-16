@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     $fire = $query->update("tbl_teacher", $data, "tid", $tid);
     if ($fire) {
 
-        header('location: http://localhost/itn/pages/admin_area/view_trainer.php');
+        header('location: http://localhost/itn2/pages/admin_area/view_trainer.php');
     }
 }
 

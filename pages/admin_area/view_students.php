@@ -33,9 +33,9 @@ include_once('../../db_queries/Db_queries.php');
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                <a class="navbar-brand brand-logo" href="http://localhost/itn/">
+                <a class="navbar-brand brand-logo" href="http://localhost/itn2/">
                     <img src="../../assets/images/logo.svg" alt="logo" /> </a>
-                <a class="navbar-brand brand-logo-mini" href="http://localhost/itn/">
+                <a class="navbar-brand brand-logo-mini" href="http://localhost/itn2/">
                     <img src="../../assets/images/logo-mini.svg" alt="logo" /> </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -86,8 +86,8 @@ include_once('../../db_queries/Db_queries.php');
                                                     <tr class="table-info">
                                                         <td> <?= $row['sid']; ?> </td>
                                                         <td> <?= $row['s_fname'] . " " . $row['s_mname'] . " " . $row['s_lname']; ?> </td>
-                                                        <td> <a href="http://localhost/itn/pages/admin_area/pay_installment.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-success"> Pay </button> </a> </td>
-                                                        <td> <a href="http://localhost/itn/pages/admin_area/student_details.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn/pages/admin_area/edit_student.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> </td>
+                                                        <td> <a href="http://localhost/itn2/pages/admin_area/pay_installment.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-success"> Pay </button> </a> </td>
+                                                        <td> <a href="http://localhost/itn2/pages/admin_area/student_details.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn2/pages/admin_area/edit_student.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> </td>
 
                                                     </tr>
 
