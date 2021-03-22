@@ -7,18 +7,19 @@ $sid = $_GET['ref'];
 $fire = '';
 $aid = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
-    $fire = $query->dualJoin("aid", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
-    if (mysqli_num_rows($fire)) {
-        while ($row = mysqli_fetch_assoc($fire)) {
-            $aid = $row['aid'];
-        }
-
-        $_POST['i_aid'] = $aid;
-        $data = $_POST;
-
-        $fire =$query->insert("tbl_installments", $data);
+$fire = $query->dualJoin("aid", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
+if (mysqli_num_rows($fire)) {
+    while ($row = mysqli_fetch_assoc($fire)) {
+        $aid = $row['aid'];
     }
+
+    $_POST['i_aid'] = $aid;
+    $data = $_POST;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
+
+    $fire = $query->insert("tbl_installments", $data);
 }
 
 
@@ -71,49 +72,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
             <!-- partial:partials/_sidebar.html -->
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
+
+                <div class="content-wr">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo a voluptas enim ipsa expedita, obcaecati, molestias deserunt earum tempore impedit quod tenetur eius optio est sint fugit nulla illum ea!</p>
+                </div>
                 <div class="content-wr">
                     <form class="forms-sample" method="POST">
-                        <div class="col-12 stretch-card" style="margin-bottom: 50px;">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Installment</h4>
-                                    <p class="card-description"> Fee Installment </p>
+                        <div class="col-12" style="margin-bottom: 50px;">
+                            <div class="row">
+                                <div class="col-sm-8">
 
-                                    <div class="form-group row">
-                                        <label for="i_title" class="col-sm-3 col-form-label">Installment Title</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="i_title" id="i_title" placeholder="eg.second installment">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="i_amount" class="col-sm-3 col-form-label">Installment Amount</label>
-                                        <div class="col-sm-9">
-                                            <input type="number" class="form-control" name="i_amount" id="i_amount" placeholder="Installment Amount" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="i_date" class="col-sm-3 col-form-label">Installment Date</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="i_date" id="i_date" value="<?= date('Y-m-d') ?>" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="i_aid" id="i_date" hidden>
-                                        </div>
-                                    </div>
-                                        <!-- <div class="form-group row">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Installment</h4>
+                                            <p class="card-description"> Fee Installment </p>
+
+                                            <div class="form-group row">
+                                                <label for="i_title" class="col-sm-3 col-form-label">Installment Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_title" id="i_title" placeholder="eg.second installment">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_amount" class="col-sm-3 col-form-label">Installment Amount</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="i_amount" id="i_amount" placeholder="Installment Amount" min="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_date" class="col-sm-3 col-form-label">Installment Date</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_date" id="i_date" value="<?= date('Y-m-d') ?>" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_aid" id="i_date" hidden>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-group row">
                                             <label for="i_aid" class="col-sm-3 col-form-label">Installment Amount</label>
                                             <div class="col-sm-9">
                                                 <input type="number" class="form-control" name="i_aid" id="i_aid" min="0">
                                             </div>
                                         </div> -->
-                                        <button type="submit" class="btn btn-success mr-2" name="pay">Submit</button>
+                                            <button type="submit" class="btn btn-success mr-2" name="pay">Submit</button>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Installment History</h4>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> Title</th>
+                                                        <th> Amount </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $getInstallmentInfo = $query->select("tbl_installments", "i_aid", $aid);
+                                                    $count = 1;
+                                                    if (mysqli_num_rows($getInstallmentInfo) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($getInstallmentInfo)) { ?>
+                                                            <tr>
+                                                                <td><?= $count; ?></td>
+                                                                <td><?= $row['i_title']; ?></td>
+                                                                <td><?= $row['i_amount'] ?></td>
+                                                            </tr>
+
+
+
+                                                    <?php $count++;
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            
+                                                        <?php
+                                                            $paidAmount = $query->columnSum("tbl_installments", "i_amount", "i_aid", $aid);
+                                                            if (mysqli_num_rows($paidAmount) > 0) {
+                                                                while ($row = mysqli_fetch_assoc($paidAmount)) {
+                                                                    $totalPaidAmount = $row['SUM(i_amount)'];
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <strong>Total paid:&emsp;&emsp;&emsp;&emsp;&emsp;</strong><?= $totalPaidAmount; ?>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

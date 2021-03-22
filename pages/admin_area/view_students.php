@@ -127,7 +127,16 @@ include_once('../../db_queries/Db_queries.php');
     <!-- Custom js for this page-->
     <script src="../../assets/js/demo_1/dashboard.js"></script>
     <!-- End custom js for this page-->
-    <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
+    <!-- <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script> -->
+
+
+    <!-- custom js for ajax and Jquery -->
+    <script src="../../assets/js/custom/jquery.js"></script>
+    <script src="../../assets/js/custom/custom.js"></script>
+
+
+
+    
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script>
         $("#search").keyup(function() {

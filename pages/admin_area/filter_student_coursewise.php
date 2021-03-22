@@ -52,7 +52,6 @@ include_once('../../db_queries/Db_queries.php');
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
                 <div class="content-wr">
-                    <!-- Start -Personal Information and contact -->
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
@@ -65,7 +64,7 @@ include_once('../../db_queries/Db_queries.php');
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Category</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="#filterbycourse">
                                                         <option value="" disabled selected>--Select Course--</option>
                                                         <?php
                                                         $fire = $query->select("tbl_courses");
@@ -74,6 +73,9 @@ include_once('../../db_queries/Db_queries.php');
                                                                 <option value="<?= $row['cid']; ?>"><?= $row['c_name']; ?></option>
                                                         <?php }
                                                         }
+                                                        $cid = $row['cid'];
+                                                        $fire = $query->select("tbl_admission", "a_cid", $cid);
+                                                        echo $fire;
                                                         ?>
                                                     </select>
                                                 </div>
@@ -84,7 +86,52 @@ include_once('../../db_queries/Db_queries.php');
                             </div>
                         </div>
                     </div>
-                    <!-- End -Personal Information and contact -->
+
+                    <div class="col-lg-12 stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <!-- Searchbar start -->
+
+                                <div class="input-group col-sm-8">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" id="search" aria-describedby="search-addon" />
+                                    <button type="button" class="btn btn-outline-primary">search</button>
+                                </div>
+
+                                <!--  Searchbar end -->
+
+                                <h4 class="card-title">Students Table</h4>
+                                <!-- <p class="card-description"> Add class <code>.table-{color}</code> </p> -->
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th> # </th>
+                                            <th> Trainer's Name </th>
+                                            <th colspan="2"> Actions </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $fire = $query->select("tbl_admission");
+                                        if (mysqli_num_rows($fire) > 0) {
+                                            while ($row = mysqli_fetch_assoc($fire)) { ?>
+
+                                                <tr class="table-info">
+                                                    <td> <?= $row['tid']; ?> </td>
+                                                    <td> <?= $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?> </td>
+                                                    <td> <a href="http://localhost/itn2/pages/admin_area/trainer_details.php?ref=<?= $row['tid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn2/pages/admin_area/edit_trainer.php?ref=<?= $row['tid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> </td>
+
+                                                </tr>
+
+                                        <?php }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
