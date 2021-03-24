@@ -112,21 +112,6 @@ include_once('../../db_queries/Db_queries.php');
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="../../assets/vendors/js/vendor.bundle.addons.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="../../assets/js/shared/off-canvas.js"></script>
-    <script src="../../assets/js/shared/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="../../assets/js/demo_1/dashboard.js"></script>
-    <!-- End custom js for this page-->
-    <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script>
         $("#search").keyup(function() {
             var value = this.value.toLowerCase().trim();
