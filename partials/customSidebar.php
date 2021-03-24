@@ -65,5 +65,22 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                            <i class="menu-icon typcn typcn-coffee"></i>
+                            <span class="menu-title">Group Classes</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/itn2/pages/admin_area/create_class.php">Create Class</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Existing Classes</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </nav>

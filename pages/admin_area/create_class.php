@@ -1,5 +1,20 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
+include_once('../../config/config.php');
+$cid = '';
+
+
+// $sid = $_GET['ref'];
+
+// $query->dualJoin("");
+
+// function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value)
+// {
+//     // $jquery = "SELECT aid FROM tbl_admission INNER JOIN tbl_student ON tbl_admission.a_sid = tbl_student.sid WHERE tbl_student.sid = $sid";
+//     $query = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk WHERE $tbl2_name.$tbl2_pk = $criteria_value";
+//     // echo $query;
+//     return $fire = mysqli_query($this->conn, $query);
+// }
 
 ?>
 <!DOCTYPE html>
@@ -9,7 +24,7 @@ include_once('../../db_queries/Db_queries.php');
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>ITN</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -50,63 +65,61 @@ include_once('../../db_queries/Db_queries.php');
             <!-- partial:partials/_sidebar.html -->
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
-                <div class="content-wr">
-                    <div class="content-wr">
-                        <div class="col-lg-12 stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-
-
-                                    <!-- Searchbar start -->
-
-                                    <div class="input-group col-sm-8">
-                                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" id="search" aria-describedby="search-addon" />
-                                        <button type="button" class="btn btn-outline-primary">search</button>
-                                    </div>
-
-                                    <!--  Searchbar end -->
-
-                                    <h4 class="card-title">Students Table</h4>
-                                    <!-- <p class="card-description"> Add class <code>.table-{color}</code> </p> -->
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th> # </th>
-                                                <th> Student's Name </th>
-                                                <th> Installments </th>
-                                                <th colspan="2"> Actions </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                <!-- <div class="content-wr"> -->
+                <form class="forms-sample" method="POST">
+                    <!-- Form - Add Trainer -->
+                    <div class=" col-12 stretch-card" style="margin-bottom: 50px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Create Group</h4>
+                                <p class="card-description"> Group Details </p>
+                                <div class="form-group row">
+                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Course</label>
+                                    <div class="col-sm-9">
+                                        <select name="g_cid" id="g_cid" class="form-control">
+                                            <option value="" selected disabled>--Select Course--</option>
                                             <?php
-                                            $fire = $query->select("tbl_student");
+                                            $fire = $query->select("tbl_courses");
                                             if (mysqli_num_rows($fire) > 0) {
                                                 while ($row = mysqli_fetch_assoc($fire)) { ?>
-
-                                                    <tr class="table-info">
-                                                        <td> <?= $row['sid']; ?> </td>
-                                                        <td> <?= $row['s_fname'] . " " . $row['s_mname'] . " " . $row['s_lname']; ?> </td>
-                                                        <td> <a href="http://localhost/itn2/pages/admin_area/pay_installment.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-success"> Pay </button> </a> </td>
-                                                        <td> <a href="http://localhost/itn2/pages/admin_area/student_details.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn2/pages/admin_area/edit_student.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> <a href="../admin_area/select_group.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-info"> Assign Class </button> </a> </td>
-
-                                                    </tr>
-
+                                                    <option value="<?= $row['cid'] ?>"><?= $row['c_name'] ?></option>
                                             <?php }
                                             }
+
                                             ?>
-                                        </tbody>
-                                    </table>
+                                        </select>
+                                    </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Course</label>
+                                    <div class="col-sm-9">
+                                        <select name="g_cid" id="g_cid" class="form-control">
+                                            <option value="" selected disabled>--Select Course--</option>
+                                            <?php
+                                            $fire = $query->select("tbl_courses");
+                                            if (mysqli_num_rows($fire) > 0) {
+                                                while ($row = mysqli_fetch_assoc($fire)) { ?>
+                                                    <option value="<?= $row['cid'] ?>"><?= $row['c_name'] ?></option>
+                                            <?php }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success mr-2" name="submit">Submit</button>
+
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- Form - End of Add Trainer -->
             </div>
         </div>
     </div>
     <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->
     <?php include_once('../../partials/_footer.html') ?>
+
     <!-- partial -->
     </div>
     <!-- main-panel ends -->
@@ -127,32 +140,9 @@ include_once('../../db_queries/Db_queries.php');
     <!-- Custom js for this page-->
     <script src="../../assets/js/demo_1/dashboard.js"></script>
     <!-- End custom js for this page-->
-    <!-- <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script> -->
-
-
-    <!-- custom js for ajax and Jquery -->
-    <script src="../../assets/js/custom/jquery.js"></script>
-    <script src="../../assets/js/custom/custom.js"></script>
-
-
-
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script>
-        $("#search").keyup(function() {
-            var value = this.value.toLowerCase().trim();
-
-            $("table tr").each(function(index) {
-                if (!index) return;
-                $(this).find("td").each(function() {
-                    var id = $(this).text().toLowerCase().trim();
-                    var not_found = (id.indexOf(value) == -1);
-                    $(this).closest('tr').toggle(!not_found);
-                    return not_found;
-                });
-            });
-        });
-    </script>
+    <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../../assets/js/custom/jquery.js" type="text/javascript"></script>
+    <script src="../../assets/js/custom/custom.js" type="text/javascript"></script>
 </body>
 
 </html>

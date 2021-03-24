@@ -150,16 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group row">
-                                    <label for="t_college" class="col-sm-3 col-form-label">College Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="t_college" id="t_college" placeholder="College Enrolled with">
-                                    </div>
-                                </div> -->
                                 <div class="form-group row">
-                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Academic Level</label>
+                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Course</label>
                                     <div class="col-sm-9">
-                                        <select name="t_cid" id="t)cid" class="form-control">
+                                        <select name="t_cid" id="t_cid" class="form-control">
                                             <option value="" selected disabled>--Select Course--</option>
                                             <?php
                                             $fire = $query->select("tbl_courses");

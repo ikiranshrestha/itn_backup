@@ -6,11 +6,13 @@ $sid = $_GET['ref'];
 
 $fire = '';
 $aid = '';
+$payable_amount = '';
 
-$fire = $query->dualJoin("aid", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
+$fire = $query->dualJoin("aid, a_payable_amount", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
 if (mysqli_num_rows($fire)) {
     while ($row = mysqli_fetch_assoc($fire)) {
         $aid = $row['aid'];
+        $payable_amount = $row['a_payable_amount'];
     }
 
     $_POST['i_aid'] = $aid;
@@ -20,6 +22,7 @@ if (mysqli_num_rows($fire)) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
 
     $fire = $query->insert("tbl_installments", $data);
+    header('location: http://localhost/itn2/pages/admin_area/view_students.php');
 }
 
 
@@ -72,10 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
             <!-- partial:partials/_sidebar.html -->
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
-
-                <div class="content-wr">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo a voluptas enim ipsa expedita, obcaecati, molestias deserunt earum tempore impedit quod tenetur eius optio est sint fugit nulla illum ea!</p>
-                </div>
                 <div class="content-wr">
                     <form class="forms-sample" method="POST">
                         <div class="col-12" style="margin-bottom: 50px;">
@@ -110,12 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                                     <input type="text" class="form-control" name="i_aid" id="i_date" hidden>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group row">
-                                            <label for="i_aid" class="col-sm-3 col-form-label">Installment Amount</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" name="i_aid" id="i_aid" min="0">
-                                            </div>
-                                        </div> -->
                                             <button type="submit" class="btn btn-success mr-2" name="pay">Submit</button>
 
                                         </div>
@@ -127,6 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Installment History</h4>
+                                            <div>
+                                                <p><strong>Payable Amount: </strong> <?= $payable_amount ?> </p>
+                                            </div>
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
@@ -155,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                                     ?>
                                                     <tr>
                                                         <td colspan="3">
-                                                            
-                                                        <?php
+
+                                                            <?php
                                                             $paidAmount = $query->columnSum("tbl_installments", "i_amount", "i_aid", $aid);
                                                             if (mysqli_num_rows($paidAmount) > 0) {
                                                                 while ($row = mysqli_fetch_assoc($paidAmount)) {
@@ -166,6 +162,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                                             ?>
                                                             <strong>Total paid:&emsp;&emsp;&emsp;&emsp;&emsp;</strong><?= $totalPaidAmount; ?>
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3"><strong>Due:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong><?= ($payable_amount - $totalPaidAmount) ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
