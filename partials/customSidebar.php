@@ -77,7 +77,7 @@
                                     <a class="nav-link" href="http://localhost/itn2/pages/admin_area/create_class.php">Create Class</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Existing Classes</a>
+                                    <a class="nav-link" href="http://localhost/itn2/pages/admin_area/available_classes.php">Existing Classes</a>
                                 </li>
                             </ul>
                         </div>

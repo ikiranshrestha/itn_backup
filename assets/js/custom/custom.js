@@ -1,30 +1,19 @@
-$(document).ready(function(){
-    $()
-});
+function loadTrainers() {
+    $(document).ready(function () {
+        $('#g_cid').on('change', function () {
+            var courseId = $(this).val();
 
+            $.ajax({
+                method: "POST",
+                url: "http://localhost/itn2/pages/admin_area/loaders/load_trainers.php",
+                data: { id: courseId },
+                dataType: "html",
+                success: function (data) {
+                    $("#g_tid").html(data);
+                }
+            });
+        });
+    });
+}
 
-document.querySelector('#filterbycourse').addEventListener('click', function (e) {
-    e.preventDefault();
-    // $('#birth_month option[value="data.month"]').prop('selected', true);
-    var course = document.getElementById('#filterbycourse');
-    let send_url = "";
-    console.log(course);
-
-    $.ajax({
-        type: "POST",
-        url: send_url,
-        data: send_data,
-        success: function (response) {
-            $('.messages').css('display', 'block');
-            $('.messages').html(response);
-
-            setTimeout(function () {
-                $('.messages').hide('slow');
-            }, 2000);
-
-            document.getElementById('ajax').reset();
-            getStudents();
-
-        }
-    })
-})
+loadTrainers();

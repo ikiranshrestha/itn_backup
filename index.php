@@ -65,12 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     </div>
     <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container-fluid clearfix">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                    <a href="https://shresthakiran.com.np" target="_blank">&nbsp;Kiran Shrestha</a>
+                </span>
+                2020</span>
         </div>
-    </footer>
+    </footer> -->
+    <?php include_once('./partials/_footer.html'); ?>
     <!-- partial -->
     </div>
     <!-- main-panel ends -->

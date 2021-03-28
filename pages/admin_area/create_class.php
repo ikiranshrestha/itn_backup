@@ -1,9 +1,14 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
-include_once('../../config/config.php');
-$cid = '';
+// $cid = '';
 
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
+    $data = $_POST;
+    $fire = $query->insert("tbl_group", $data);
+    if ($fire) {
+        header('location: http://localhost/itn2/pages/admin_area/available_classes.php');
+    }
+}
 // $sid = $_GET['ref'];
 
 // $query->dualJoin("");
@@ -74,7 +79,7 @@ $cid = '';
                                 <h4 class="card-title">Create Group</h4>
                                 <p class="card-description"> Group Details </p>
                                 <div class="form-group row">
-                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Course</label>
+                                    <label for="g_cid" class="col-sm-3 col-form-label">Course</label>
                                     <div class="col-sm-9">
                                         <select name="g_cid" id="g_cid" class="form-control">
                                             <option value="" selected disabled>--Select Course--</option>
@@ -91,15 +96,41 @@ $cid = '';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="t_academic_level" class="col-sm-3 col-form-label">Course</label>
+                                    <label for="g_tid" class="col-sm-3 col-form-label">Trainer</label>
                                     <div class="col-sm-9">
-                                        <select name="g_cid" id="g_cid" class="form-control">
-                                            <option value="" selected disabled>--Select Course--</option>
+                                        <select name="g_tid" id="g_tid" class="form-control">
+                                            <option value="" selected disabled>--Select Trainer--</option>
+                                            <!-- <?php
+                                                    $fire = $query->select("tbl_teacher");
+                                                    if (mysqli_num_rows($fire) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($fire)) {
+                                                            $t_name = $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?>
+                                                    <option value="<?= $row['tid'] ?>"><?= $t_name; ?></option>
+                                            <?php }
+                                                    }
+
+                                            ?> -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="g_title" class="col-sm-3 col-form-label">Group Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="g_title" id="g_title" placeholder="Name for the Group">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="g_rid" class="col-sm-3 col-form-label">Room</label>
+                                    <div class="col-sm-9">
+                                        <select name="g_rid" id="g_rid" class="form-control">
+                                            <option value="" selected disabled>--Select Room--</option>
                                             <?php
-                                            $fire = $query->select("tbl_courses");
+                                            $fire = $query->select("tbl_room");
                                             if (mysqli_num_rows($fire) > 0) {
                                                 while ($row = mysqli_fetch_assoc($fire)) { ?>
-                                                    <option value="<?= $row['cid'] ?>"><?= $row['c_name'] ?></option>
+                                                    <option value="<?= $row['rid'] ?>"><?= $row['r_title']; ?></option>
                                             <?php }
                                             }
 
@@ -107,7 +138,24 @@ $cid = '';
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success mr-2" name="submit">Submit</button>
+                                <div class="form-group row">
+                                    <label for="g_tmid" class="col-sm-3 col-form-label">Timing</label>
+                                    <div class="col-sm-9">
+                                        <select name="g_tmid" id="g_tmid" class="form-control">
+                                            <option value="" selected disabled>--Select Timing--</option>
+                                            <?php
+                                            $fire = $query->select("tbl_time");
+                                            if (mysqli_num_rows($fire) > 0) {
+                                                while ($row = mysqli_fetch_assoc($fire)) { ?>
+                                                    <option value="<?= $row['tmid'] ?>"><?= $row['tm_time']; ?></option>
+                                            <?php }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success mr-2" name="create">Create Group</button>
 
                             </div>
                         </div>
@@ -127,6 +175,28 @@ $cid = '';
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+
+    <script src="../../assets/js/custom/jquery.js"></script>
+    <script src="../../assets/js/custom/custom.js"></script>
+    <!-- <script>
+        $(document).ready(function() {
+            $('#g_cid').on('change', function() {
+                var courseId = $(this).val();
+                $.ajax({
+                    method: "POST",
+                    url: "../../pages/admin_area/loaders/load_trainers.php",
+                    data: {
+                        id: courseId
+                    },
+                    dataType: "html",
+                    success: function(data) {
+                        $("#g_tid").html(data);
+                    }
+                })
+            })
+        })
+    </script> -->
+
 </body>
 
 </html>
