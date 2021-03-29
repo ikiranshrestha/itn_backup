@@ -50,20 +50,30 @@ class Queries
         return $fire = mysqli_query($this->conn, $query);
     }
 
-    function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value)
+    function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value = '')
     {
-        // $jquery = "SELECT aid FROM tbl_admission INNER JOIN tbl_student ON tbl_admission.a_sid = tbl_student.sid WHERE tbl_student.sid = $sid";
-        $query = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk WHERE $tbl2_name.$tbl2_pk = $criteria_value";
-        // echo $query;
-        return $fire = mysqli_query($this->conn, $query);
+        if ($criteria_value == '') {
+                $sql = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk LIMIT 10";
+            return $fire = mysqli_query($this->conn, $sql);
+            // return $sql;
+        } else {
+            $sql = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk LIMIT 10";
+                return $fire = mysqli_query($this->conn, $sql);
+                // return $sql;
+        }
     }
+
+    // function pentaJoin($required, $tbl1_name, $tbl2_name, $tbl3_name, $tbl4_name, $tbl5_name)
+    // {
+    //     $sql = "SELECT * FROM ((((tbl_group INNER JOIN tbl_courses ON tbl_group.g_cid = tbl_courses.cid) INNER JOIN tbl_teacher ON tbl_group.g_tid = tbl_teacher.tid) INNER JOIN tbl_time ON tbl_group.g_tmid = tbl_time.tmid) INNER JOIN tbl_room ON tbl_group.g_rid = tbl_room.rid)";
+
+    // }
 
     function columnSum($tbl_name, $column_name, $criteria, $criteria_value)
     {
         $query = "SELECT SUM($column_name) FROM $tbl_name WHERE $criteria = $criteria_value";
         return $fire = mysqli_query($this->conn, $query);
     }
-    
 }
 
 $query = new Queries();

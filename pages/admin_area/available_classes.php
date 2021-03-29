@@ -29,7 +29,7 @@ include_once('../../db_queries/Db_queries.php');
 </head>
 
 <body>
-<div class="container-scroller">
+    <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
@@ -62,7 +62,7 @@ include_once('../../db_queries/Db_queries.php');
                                             <th> # </th>
                                             <th> Group Title </th>
                                             <th> Group Course </th>
-                                            <th> Assigned Trainer  </th>
+                                            <th> Assigned Trainer </th>
                                             <th> Assigned Room </th>
                                             <th> Assigned Time </th>
                                             <th> No. of Students </th>
@@ -70,29 +70,36 @@ include_once('../../db_queries/Db_queries.php');
                                     </thead>
                                     <tbody>
                                         <!-- <?php
-                                        $fire = $query->select("tbl_courses");
-                                        if (mysqli_num_rows($fire) > 0) {
-                                            while ($row = mysqli_fetch_assoc($fire)) { ?>
-
+                                                $fire = $query->select("tbl_group");
+                                                $i = 0;
+                                                if (mysqli_num_rows($fire) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($fire)) {
+                                                        $i++;
+                                                ?>
                                                 <tr class="table-info">
-                                                    <td> <?= $row['cid']; ?> </td>
-                                                    <td> <?= $row['c_name']; ?> </td>
-                                                    <td> Rs. <?= $row['c_cost']; ?>.00 </td>
-
-                                                    <?php
-                                                    $c_status = $row['c_status'];
-                                                    if ($c_status == "available") { ?>
-                                                        <td> <input type="button" value="<?= $c_status; ?>" name="c_status" class="btn btn-success" disabled> </td>
-                                                    <?php } else { ?>
-                                                        <td> <input type='button' value='<?= $c_status; ?>' name='c_status' class='btn btn-danger' disabled> </td>
-                                                    <?php }
-                                                    ?>
+                                                    <td> <?= $i; ?> </td>
+                                                    <td> <?= $row['g_title']; ?> </td>
+                                                    <td> Rs. <?= $row['g_title']; ?>.00 </td>
 
                                                 </tr>
 
                                         <?php }
-                                        }
+                                                }
                                         ?> -->
+                                        <?php
+
+                                        $fire1 = $query->dualJoin("g_title, c_name", "tbl_group", "tbl_courses", "g_cid", "cid");
+                                        if (mysqli_num_rows($fire1)) {
+                                            while ($row = mysqli_fetch_assoc($fire1)) { ?>
+                                                <tr class="table-info">
+                                                    <td> <?= $i; ?> </td>
+                                                    <td> <?= $row['g_title']; ?> </td>
+                                                    <td> <?= $row['c_name']; ?></td>
+
+                                                </tr>
+                                        <?php }
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

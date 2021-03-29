@@ -1,25 +1,16 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
-// $cid = '';
-
+$data1 = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
     $data = $_POST;
+    $data1 = ['or_rid' => $_POST['g_rid'], 'or_tmid' => $_POST['g_tmid'], 'create' => $_POST['create']];
     $fire = $query->insert("tbl_group", $data);
+    $query->insert("tbl_occupied_room", $data1);
+
     if ($fire) {
         header('location: http://localhost/itn2/pages/admin_area/available_classes.php');
     }
 }
-// $sid = $_GET['ref'];
-
-// $query->dualJoin("");
-
-// function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value)
-// {
-//     // $jquery = "SELECT aid FROM tbl_admission INNER JOIN tbl_student ON tbl_admission.a_sid = tbl_student.sid WHERE tbl_student.sid = $sid";
-//     $query = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk WHERE $tbl2_name.$tbl2_pk = $criteria_value";
-//     // echo $query;
-//     return $fire = mysqli_query($this->conn, $query);
-// }
 
 ?>
 <!DOCTYPE html>
@@ -100,16 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
                                     <div class="col-sm-9">
                                         <select name="g_tid" id="g_tid" class="form-control">
                                             <option value="" selected disabled>--Select Trainer--</option>
-                                            <!-- <?php
-                                                    $fire = $query->select("tbl_teacher");
-                                                    if (mysqli_num_rows($fire) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($fire)) {
-                                                            $t_name = $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?>
-                                                    <option value="<?= $row['tid'] ?>"><?= $t_name; ?></option>
-                                            <?php }
-                                                    }
-
-                                            ?> -->
                                         </select>
                                     </div>
                                 </div>
@@ -122,23 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
 
 
                                 <div class="form-group row">
-                                    <label for="g_rid" class="col-sm-3 col-form-label">Room</label>
-                                    <div class="col-sm-9">
-                                        <select name="g_rid" id="g_rid" class="form-control">
-                                            <option value="" selected disabled>--Select Room--</option>
-                                            <?php
-                                            $fire = $query->select("tbl_room");
-                                            if (mysqli_num_rows($fire) > 0) {
-                                                while ($row = mysqli_fetch_assoc($fire)) { ?>
-                                                    <option value="<?= $row['rid'] ?>"><?= $row['r_title']; ?></option>
-                                            <?php }
-                                            }
-
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label for="g_tmid" class="col-sm-3 col-form-label">Timing</label>
                                     <div class="col-sm-9">
                                         <select name="g_tmid" id="g_tmid" class="form-control">
@@ -146,8 +110,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
                                             <?php
                                             $fire = $query->select("tbl_time");
                                             if (mysqli_num_rows($fire) > 0) {
-                                                while ($row = mysqli_fetch_assoc($fire)) { ?>
+                                                while ($row = mysqli_fetch_assoc($fire)) {
+                                                    $tmid = $row['rid']; ?>
                                                     <option value="<?= $row['tmid'] ?>"><?= $row['tm_time']; ?></option>
+                                            <?php }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="g_rid" class="col-sm-3 col-form-label">Room</label>
+                                    <div class="col-sm-9">
+                                        <select name="g_rid" id="g_rid" class="form-control">
+                                            <option value="" selected disabled>--Select Room--</option>
+                                            <?php
+                                            $fire = $query->select("tbl_room");
+                                            if (mysqli_num_rows($fire) > 0) {
+                                                while ($row = mysqli_fetch_assoc($fire)) {
+                                                    $rid = $row['rid']; ?>
+                                                    <option value="<?= $row['rid'] ?>"><?= $row['r_title']; ?></option>
                                             <?php }
                                             }
 
