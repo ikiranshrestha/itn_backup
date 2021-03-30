@@ -88,14 +88,21 @@ include_once('../../db_queries/Db_queries.php');
                                         ?> -->
                                         <?php
                                         // $fire1 = $query->dualJoin("g_title, c_name", "tbl_group", "tbl_courses", "g_cid", "cid");
-                                        echo $fire = $query->pentaJoin("g_title, c_name, t_fname, t_lname, t_lname, r_title, tm_time", "tbl_group", "tbl_courses", "g_cid", "cid", "tbl_teacher", "g_tid", "tid", "tbl_room", "g_rid", "rid", "tbl_time", "g_tmid", "tmimd");
+                                        $fire = $query->pentaJoin("*", "tbl_group", "tbl_courses", "tbl_teacher", "tbl_room", "tbl_time", "g_cid", "g_tid", "g_rid", "g_tmid", "cid", "tid", "rid", "tmid");
+
                                         if (mysqli_num_rows($fire) > 0) {
-                                            while ($row = mysqli_fetch_assoc($fire)) { ?>
+                                            $i=0;
+                                            while ($row = mysqli_fetch_assoc($fire)) {
+                                                $i++;
+                                                // echo "<pre>";
+                                                // print_r($row);
+                                                // echo "</pre>";
+                                        ?>
                                                 <tr class="table-info">
                                                     <td> <?= $i; ?> </td>
                                                     <td> <?= $row['g_title']; ?> </td>
                                                     <td> <?= $row['c_name']; ?></td>
-                                                    <td> <?= $row['t_fname'] + " " +$row['t_mname'] + " " + $row['t_lname']; ?></td>
+                                                    <td> <?= $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?></td>
                                                     <td> <?= $row['r_title']; ?></td>
                                                     <td> <?= $row['tm_time']; ?></td>
 

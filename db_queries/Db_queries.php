@@ -73,12 +73,14 @@ class Queries
         // return $sql;
     }
 
-    function pentaJoin($required, $base_tbl, $tbl1_name, $base_tbl1_fk, $tbl1_pk, $tbl2_name, $base_tbl2_fk, $tbl2_pk, $tbl3_name, $base_tbl3_fk, $tbl3_pk, $tbl4_name, $base_tbl4_fk, $tbl4_pk)
+    function pentaJoin($required, $base_tbl, $tbl1_name, $tbl2_name, $tbl3_name, $tbl4_name, $base_tbl1_fk, $base_tbl2_fk, $base_tbl3_fk, $base_tbl4_fk, $tbl1_pk, $tbl2_pk, $tbl3_pk, $tbl4_pk)
     {
-        $sql = "SELECT $required FROM (((($base_tbl INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk) INNER JOIN $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk) INNER JOIN $base_tbl INNER JOIN $tbl3_name ON $base_tbl.$base_tbl3_fk = $tbl3_name.$tbl3_pk) INNER JOIN $base_tbl INNER JOIN $tbl1_name ON $base_tbl.$base_tbl4_fk = $tbl4_name.$tbl4_pk)";
-
-        // return $fire = mysqli_query($this->conn, $sql);
-        return $sql;
+        $sql = "SELECT $required
+        FROM (((($base_tbl
+        INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk)
+        INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk) INNER JOIN $tbl3_name ON $base_tbl.$base_tbl3_fk = $tbl3_name.$tbl3_pk) INNER JOIN $tbl4_name ON $base_tbl.$base_tbl4_fk = $tbl4_name.$tbl4_pk) ";
+        return $fire = mysqli_query($this->conn, $sql);
+        // return $sql;
     }
 
     function columnSum($tbl_name, $column_name, $criteria, $criteria_value)
