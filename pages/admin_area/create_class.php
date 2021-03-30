@@ -61,6 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
             <!-- partial:partials/_sidebar.html -->
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
+                <?php
+                $fire = $query->triJoin("*", "tbl_occupied_room", "tbl_room", "tbl_time", "or_rid", "or_tmid", "rid", "tmid");
+                // $fire = $query->select("tbl_occupied_room");
+                echo "<pre>";
+                while ($row = mysqli_fetch_assoc($fire)) {
+                    print_r($row);
+                }
+                echo "</pre>";
+
+                ?>
                 <!-- <div class="content-wr"> -->
                 <form class="forms-sample" method="POST">
                     <!-- Form - Add Trainer -->
@@ -126,16 +136,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
                                     <div class="col-sm-9">
                                         <select name="g_rid" id="g_rid" class="form-control">
                                             <option value="" selected disabled>--Select Room--</option>
-                                            <?php
-                                            $fire = $query->select("tbl_room");
-                                            if (mysqli_num_rows($fire) > 0) {
-                                                while ($row = mysqli_fetch_assoc($fire)) {
-                                                    $rid = $row['rid']; ?>
+                                            <!-- <?php
+                                                    $fire = $query->select("tbl_room");
+                                                    if (mysqli_num_rows($fire) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($fire)) {
+                                                            $rid = $row['rid']; ?>
                                                     <option value="<?= $row['rid'] ?>"><?= $row['r_title']; ?></option>
                                             <?php }
-                                            }
+                                                    }
 
-                                            ?>
+                                            ?> -->
                                         </select>
                                     </div>
                                 </div>

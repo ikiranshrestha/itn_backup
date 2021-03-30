@@ -17,3 +17,23 @@ function loadTrainers() {
 }
 
 loadTrainers();
+
+function loadRooms() {
+    $(document).ready(function () {
+        $('#g_tmid').on('change', function () {
+            var timeId = $(this).val();
+
+            $.ajax({
+                method: "POST",
+                url: "http://localhost/itn2/pages/admin_area/loaders/load_rooms.php",
+                data: { id: timeId },
+                dataType: "html",
+                success: function (data) {
+                    $("#g_rid").html(data);
+                }
+            });
+        });
+    });
+}
+
+loadRooms();

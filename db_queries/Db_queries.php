@@ -50,24 +50,36 @@ class Queries
         return $fire = mysqli_query($this->conn, $query);
     }
 
-    function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value = '')
+    function dualJoin($required, $base_tbl, $tbl2_name, $base_tbl_fk, $tbl2_pk, $criteria_value = '')
     {
         if ($criteria_value == '') {
-                $sql = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk LIMIT 10";
+            $sql = "SELECT $required FROM $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl_fk = $tbl2_name.$tbl2_pk LIMIT 10";
             return $fire = mysqli_query($this->conn, $sql);
             // return $sql;
         } else {
-            $sql = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk LIMIT 10";
-                return $fire = mysqli_query($this->conn, $sql);
-                // return $sql;
+            $sql = "SELECT $required FROM $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl_fk = $tbl2_name.$tbl2_pk LIMIT 10";
+            return $fire = mysqli_query($this->conn, $sql);
+            // return $sql;
         }
     }
 
-    // function pentaJoin($required, $tbl1_name, $tbl2_name, $tbl3_name, $tbl4_name, $tbl5_name)
-    // {
-    //     $sql = "SELECT * FROM ((((tbl_group INNER JOIN tbl_courses ON tbl_group.g_cid = tbl_courses.cid) INNER JOIN tbl_teacher ON tbl_group.g_tid = tbl_teacher.tid) INNER JOIN tbl_time ON tbl_group.g_tmid = tbl_time.tmid) INNER JOIN tbl_room ON tbl_group.g_rid = tbl_room.rid)";
+    function triJoin($required, $base_tbl, $tbl1_name, $tbl2_name, $base_tbl1_fk, $base_tbl2_fk, $tbl1_pk, $tbl2_pk)
+    {
+        $sql = "SELECT $required
+        FROM (($base_tbl
+        INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk)
+        INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk)";
+        return $fire = mysqli_query($this->conn, $sql);
+        // return $sql;
+    }
 
-    // }
+    function pentaJoin($required, $base_tbl, $tbl1_name, $base_tbl1_fk, $tbl1_pk, $tbl2_name, $base_tbl2_fk, $tbl2_pk, $tbl3_name, $base_tbl3_fk, $tbl3_pk, $tbl4_name, $base_tbl4_fk, $tbl4_pk)
+    {
+        $sql = "SELECT $required FROM (((($base_tbl INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk) INNER JOIN $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk) INNER JOIN $base_tbl INNER JOIN $tbl3_name ON $base_tbl.$base_tbl3_fk = $tbl3_name.$tbl3_pk) INNER JOIN $base_tbl INNER JOIN $tbl1_name ON $base_tbl.$base_tbl4_fk = $tbl4_name.$tbl4_pk)";
+
+        // return $fire = mysqli_query($this->conn, $sql);
+        return $sql;
+    }
 
     function columnSum($tbl_name, $column_name, $criteria, $criteria_value)
     {

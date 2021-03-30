@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     $fire = $query->update("tbl_teacher", $data, "tid", $tid);
     if ($fire) {
 
-        header('location: http://localhost/itn2/pages/admin_area/view_trainer.php');
+        header('location: http://localhost/itn2/pages/admin_area/view_trainers.php');
     }
 }
 
@@ -129,13 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <!-- <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Gender</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" name = "t_gender" class="form-control" value="<?= $gender ?>" />
-                                                </div>
-                                            </div> -->
-
                                             <div class="form-group row">
                                                 <label for="t_gender" class="col-sm-3 col-form-label">Gender</label>
                                                 <div class="col-sm-9">

@@ -87,14 +87,17 @@ include_once('../../db_queries/Db_queries.php');
                                                 }
                                         ?> -->
                                         <?php
-
-                                        $fire1 = $query->dualJoin("g_title, c_name", "tbl_group", "tbl_courses", "g_cid", "cid");
-                                        if (mysqli_num_rows($fire1)) {
-                                            while ($row = mysqli_fetch_assoc($fire1)) { ?>
+                                        // $fire1 = $query->dualJoin("g_title, c_name", "tbl_group", "tbl_courses", "g_cid", "cid");
+                                        echo $fire = $query->pentaJoin("g_title, c_name, t_fname, t_lname, t_lname, r_title, tm_time", "tbl_group", "tbl_courses", "g_cid", "cid", "tbl_teacher", "g_tid", "tid", "tbl_room", "g_rid", "rid", "tbl_time", "g_tmid", "tmimd");
+                                        if (mysqli_num_rows($fire) > 0) {
+                                            while ($row = mysqli_fetch_assoc($fire)) { ?>
                                                 <tr class="table-info">
                                                     <td> <?= $i; ?> </td>
                                                     <td> <?= $row['g_title']; ?> </td>
                                                     <td> <?= $row['c_name']; ?></td>
+                                                    <td> <?= $row['t_fname'] + " " +$row['t_mname'] + " " + $row['t_lname']; ?></td>
+                                                    <td> <?= $row['r_title']; ?></td>
+                                                    <td> <?= $row['tm_time']; ?></td>
 
                                                 </tr>
                                         <?php }
