@@ -88,6 +88,12 @@ class Queries
         $query = "SELECT SUM($column_name) FROM $tbl_name WHERE $criteria = $criteria_value";
         return $fire = mysqli_query($this->conn, $query);
     }
+
+    function filterRoomByTime($tmid)
+    {
+        $sql = "SELECT * FROM tbl_room WHERE rid NOT IN (SELECT `or_rid` FROM `tbl_occupied_room` WHERE or_tmid = $tmid)";
+        return $fire = mysqli_query($this->conn, $sql); 
+    }
 }
 
 $query = new Queries();

@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
     $data = $_POST;
     $data1 = ['or_rid' => $_POST['g_rid'], 'or_tmid' => $_POST['g_tmid'], 'create' => $_POST['create']];
     $fire = $query->insert("tbl_group", $data);
+
+    //Inserts data regarding the assigned room as occupied room in tbl_occupied_room
     $query->insert("tbl_occupied_room", $data1);
 
     if ($fire) {
@@ -61,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
             <!-- partial:partials/_sidebar.html -->
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
-                <?php
-                $fire = $query->triJoin("*", "tbl_occupied_room", "tbl_room", "tbl_time", "or_rid", "or_tmid", "rid", "tmid");
+                <!-- <?php
+                $fire = $query->triJoin("*", "tbl_occupied_room", "tbl_time", "tbl_room", "or_tmid", "or_rid", "tmid",  "rid");
                 // $fire = $query->select("tbl_occupied_room");
                 echo "<pre>";
                 while ($row = mysqli_fetch_assoc($fire)) {
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
                 }
                 echo "</pre>";
 
-                ?>
+                ?> -->
                 <!-- <div class="content-wr"> -->
                 <form class="forms-sample" method="POST">
                     <!-- Form - Add Trainer -->
