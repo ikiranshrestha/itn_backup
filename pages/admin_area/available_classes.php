@@ -69,34 +69,13 @@ include_once('../../db_queries/Db_queries.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <?php
-                                                $fire = $query->select("tbl_group");
-                                                $i = 0;
-                                                if (mysqli_num_rows($fire) > 0) {
-                                                    while ($row = mysqli_fetch_assoc($fire)) {
-                                                        $i++;
-                                                ?>
-                                                <tr class="table-info">
-                                                    <td> <?= $i; ?> </td>
-                                                    <td> <?= $row['g_title']; ?> </td>
-                                                    <td> Rs. <?= $row['g_title']; ?>.00 </td>
-
-                                                </tr>
-
-                                        <?php }
-                                                }
-                                        ?> -->
                                         <?php
-                                        // $fire1 = $query->dualJoin("g_title, c_name", "tbl_group", "tbl_courses", "g_cid", "cid");
                                         $fire = $query->pentaJoin("*", "tbl_group", "tbl_courses", "tbl_teacher", "tbl_room", "tbl_time", "g_cid", "g_tid", "g_rid", "g_tmid", "cid", "tid", "rid", "tmid");
 
                                         if (mysqli_num_rows($fire) > 0) {
-                                            $i=0;
+                                            $i = 0;
                                             while ($row = mysqli_fetch_assoc($fire)) {
                                                 $i++;
-                                                // echo "<pre>";
-                                                // print_r($row);
-                                                // echo "</pre>";
                                         ?>
                                                 <tr class="table-info">
                                                     <td> <?= $i; ?> </td>
@@ -105,6 +84,15 @@ include_once('../../db_queries/Db_queries.php');
                                                     <td> <?= $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?></td>
                                                     <td> <?= $row['r_title']; ?></td>
                                                     <td> <?= $row['tm_time']; ?></td>
+                                                    <?php
+                                                    $fire2 = $query->getCount("tbl_s_group", "sgid", "sg_gid", $row['gid']);
+                                                    if (mysqli_num_rows($fire2) > 0) {
+                                                        while ($row2 = mysqli_fetch_assoc($fire2)) {
+                                                            $no_of_students = $row2['COUNT(sgid)'];
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <td><?= $no_of_students; ?></td>
 
                                                 </tr>
                                         <?php }
