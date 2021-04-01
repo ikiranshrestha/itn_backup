@@ -49,7 +49,7 @@ function loadAvailableClasses() {
                 data: { id: courseId },
                 dataType: "html",
                 success: function (data) {
-                    $("#gid").html(data);
+                    $("#sg_gid").html(data);
                 }
             });
         });

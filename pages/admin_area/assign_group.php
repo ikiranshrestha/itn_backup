@@ -1,9 +1,16 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
-include_once('../../config/config.php');
 
 $sid = $_GET['ref'];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_group'])) {
+    unset($_POST['g_cid']);
+    $data = $_POST;
+    $fire = $query->insert("tbl_s_group", $data);
+    if ($fire) {
+        header('location: http://localhost/itn2/pages/admin_area/view_courses.php');
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,12 +89,19 @@ $sid = $_GET['ref'];
                                         <label for="gid" class="col-sm-3 col-form-label">Group/ Class</label>
                                         <div class="col-sm-9">
                                             <div class="col-12">
-                                                <select name="gid" id="gid" class="form-control form-control-lg">
+                                                <select name="sg_gid" id="sg_gid" class="form-control form-control-lg">
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-success mr-2" name="submit">Submit</button>
+                                    <div class="form-group row">
+                                        <div class="col-sm-9">
+                                            <div class="col-12">
+                                                <input type="text" name="sg_sid" id="sg_sid" class="form-control form-control-lg" value="<?= $sid; ?>" hidden>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success mr-2" name="add_to_group">Add to Group</button>
                                 </form>
                             </div>
                         </div>
