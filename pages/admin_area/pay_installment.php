@@ -8,7 +8,7 @@ $fire = '';
 $aid = '';
 $payable_amount = '';
 
-$fire = $query->dualJoin("aid, a_payable_amount", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
+$fire = $query->dualJoin("aid, a_payable_amount", "tbl_admission", "tbl_student", "a_sid", "sid", "a_sid" , $sid);
 if (mysqli_num_rows($fire)) {
     while ($row = mysqli_fetch_assoc($fire)) {
         $aid = $row['aid'];

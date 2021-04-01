@@ -4,16 +4,6 @@ include_once('../../config/config.php');
 
 $sid = $_GET['ref'];
 
-// $query->dualJoin("");
-
-// function dualJoin($required, $tbl1_name, $tbl2_name, $tbl1_fk, $tbl2_pk, $criteria_value)
-// {
-//     // $jquery = "SELECT aid FROM tbl_admission INNER JOIN tbl_student ON tbl_admission.a_sid = tbl_student.sid WHERE tbl_student.sid = $sid";
-//     $query = "SELECT $required FROM $tbl1_name INNER JOIN $tbl2_name ON $tbl1_name.$tbl1_fk = $tbl2_name.$tbl2_pk WHERE $tbl2_name.$tbl2_pk = $criteria_value";
-//     // echo $query;
-//     return $fire = mysqli_query($this->conn, $query);
-// }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,21 +54,44 @@ $sid = $_GET['ref'];
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
                 <div class="content-wr">
-                    <form class="forms-sample" method="POST">
-                        <div class="col-12" style="margin-bottom: 50px;">
-                            <!-- <select name="" id="" class="form-control form-control-lg">
-                                <?php
-                                $fire = $query->select("tbl_courses");
-                                if (mysqli_num_rows($fire) > 0) {
-                                    while ($row = mysqli_fetch_assoc($fire)) { ?>
-                                        <option class="form-control" value="<?= $row['cid'] ?>"><?= $row['c_name']; ?></option>
-                                <?php }
-                                }
-                                ?>
-                            </select> -->
-                            <?= $sid; ?>
+                    <div class="col-12 stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Assign Class</h4>
+                                <p class="card-description"> Select Group Details </p>
+                                <form class="forms-sample" method="POST">
+                                    <div class="form-group row">
+                                        <label for="a_cid" class="col-sm-3 col-form-label">Course</label>
+                                        <div class="col-sm-9">
+                                            <div class="col-12">
+                                                <select name="g_cid" id="g_cid" class="form-control form-control-lg">
+                                                <option value="" selected disabled>--Select Course--</option>
+                                                    <?php
+                                                    $fire2 = $query->dualJoin("*", "tbl_admission", "tbl_courses", "a_cid", "cid", "tbl_admission.a_sid", $sid);
+                                                    if (mysqli_num_rows($fire2) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($fire2)) { ?>
+                                                            <option class="form-control" value="<?= $row['cid'] ?>"><?= $row['c_name'] ?></option>
+                                                    <?php }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="gid" class="col-sm-3 col-form-label">Group/ Class</label>
+                                        <div class="col-sm-9">
+                                            <div class="col-12">
+                                                <select name="gid" id="gid" class="form-control form-control-lg">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success mr-2" name="submit">Submit</button>
+                                </form>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,6 +107,8 @@ $sid = $_GET['ref'];
     <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <script src="../../assets/js/custom/jquery.js"></script>
+    <script src="../../assets/js/custom/custom.js"></script>
 </body>
 
 </html>

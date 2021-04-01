@@ -37,3 +37,23 @@ function loadRooms() {
 }
 
 loadRooms();
+
+function loadAvailableClasses() {
+    $(document).ready(function () {
+        $('#g_cid').on('change', function () {
+            var courseId = $(this).val();
+
+            $.ajax({
+                method: "POST",
+                url: "http://localhost/itn2/pages/admin_area/loaders/load_available_classes.php",
+                data: { id: courseId },
+                dataType: "html",
+                success: function (data) {
+                    $("#gid").html(data);
+                }
+            });
+        });
+    });
+}
+
+loadAvailableClasses();

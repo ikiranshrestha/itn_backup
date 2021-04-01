@@ -1,12 +1,13 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
 
-$sid = '';
+$sid = $_GET['ref'];
 $fire = '';
-$totalPaidAmount = '';
+// $totalPaidAmount = '';
 $paidAmount = '';
+$payable_amount;
+$aid;
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET)) {
-    $sid = $_GET['ref'];
     $fireStudentDetails = $query->select("tbl_student", "sid", $sid);
 
     if (mysqli_num_rows($fireStudentDetails) > 0) {
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET)) {
         }
     }
 
-    $fireEnrollmentDetails = $query->dualJoin("*", "tbl_admission", "tbl_student", "a_sid", "sid", $sid);
+    $fireEnrollmentDetails = $query->dualJoin("*", "tbl_admission", "tbl_student", "a_sid", "sid", "a_sid", $sid);
     if (mysqli_num_rows($fireEnrollmentDetails) > 0) {
         while ($row = mysqli_fetch_assoc($fireEnrollmentDetails)) {
             $aid = $row['aid'];
@@ -45,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET)) {
             }
         }
     }
-
     $getInstallmentInfo = $query->select("tbl_installments", "i_aid", $aid);
     if (mysqli_num_rows($getInstallmentInfo) > 0) {
         while ($row = mysqli_fetch_assoc($getInstallmentInfo)) {
@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET)) {
         }
     }
 }
+
 
 ?>
 <!DOCTYPE html>

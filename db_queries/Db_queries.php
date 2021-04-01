@@ -50,27 +50,37 @@ class Queries
         return $fire = mysqli_query($this->conn, $query);
     }
 
-    function dualJoin($required, $base_tbl, $tbl2_name, $base_tbl_fk, $tbl2_pk, $criteria_value = '')
+    function dualJoin($required, $base_tbl, $tbl2_name, $base_tbl_fk, $tbl2_pk, $criteria = '', $criteria_value = '')
     {
         if ($criteria_value == '') {
             $sql = "SELECT $required FROM $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl_fk = $tbl2_name.$tbl2_pk LIMIT 10";
             return $fire = mysqli_query($this->conn, $sql);
             // return $sql;
         } else {
-            $sql = "SELECT $required FROM $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl_fk = $tbl2_name.$tbl2_pk LIMIT 10";
+            $sql = "SELECT $required FROM $base_tbl INNER JOIN $tbl2_name ON $base_tbl.$base_tbl_fk = $tbl2_name.$tbl2_pk WHERE $criteria = $criteria_value LIMIT 10";
             return $fire = mysqli_query($this->conn, $sql);
             // return $sql;
         }
     }
 
-    function triJoin($required, $base_tbl, $tbl1_name, $tbl2_name, $base_tbl1_fk, $base_tbl2_fk, $tbl1_pk, $tbl2_pk)
+    function triJoin($required, $base_tbl, $tbl1_name, $tbl2_name, $base_tbl1_fk, $base_tbl2_fk, $tbl1_pk, $tbl2_pk, $criteria = '', $criteria_value = '')
     {
-        $sql = "SELECT $required
-        FROM (($base_tbl
-        INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk)
-        INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk)";
-        return $fire = mysqli_query($this->conn, $sql);
-        // return $sql;
+        if ($criteria == '' && $criteria_value == '') {
+            $sql = "SELECT $required
+            FROM (($base_tbl
+            INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk)
+            INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk)";
+            return $fire = mysqli_query($this->conn, $sql);
+            // return $sql;
+        } else {
+            $sql = "SELECT $required
+            FROM (($base_tbl
+            INNER JOIN $tbl1_name ON $base_tbl.$base_tbl1_fk = $tbl1_name.$tbl1_pk)
+            INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk) WHERE $criteria = $criteria_value";
+            return $fire = mysqli_query($this->conn, $sql);
+            // return $sql;
+
+        }
     }
 
     function pentaJoin($required, $base_tbl, $tbl1_name, $tbl2_name, $tbl3_name, $tbl4_name, $base_tbl1_fk, $base_tbl2_fk, $base_tbl3_fk, $base_tbl4_fk, $tbl1_pk, $tbl2_pk, $tbl3_pk, $tbl4_pk)
@@ -83,16 +93,35 @@ class Queries
         // return $sql;
     }
 
+    // function columnSum($tbl_name, $column_name, $criteria, $criteria_value)
+    // {
+    //     $query = "SELECT SUM($column_name) FROM $tbl_name WHERE $criteria = $criteria_value";
+    //     return $fire = mysqli_query($this->conn, $query);
+    // }
     function columnSum($tbl_name, $column_name, $criteria, $criteria_value)
     {
         $query = "SELECT SUM($column_name) FROM $tbl_name WHERE $criteria = $criteria_value";
         return $fire = mysqli_query($this->conn, $query);
+        // return $query;
+    }
+
+
+    function getCount($tbl_name, $column_name, $criteria = '', $criteria_value = '')
+    {
+        if ($criteria == '') {
+            $sql = "SELECT COUNT($column_name) FROM $tbl_name";
+            return $fire = mysqli_query($this->conn, $sql);
+        } else {
+
+            $sql = "SELECT COUNT($column_name) FROM $tbl_name WHERE $criteria = $criteria_value";
+            return $fire = mysqli_query($this->conn, $sql);
+        }
     }
 
     function filterRoomByTime($tmid)
     {
         $sql = "SELECT * FROM tbl_room WHERE rid NOT IN (SELECT `or_rid` FROM `tbl_occupied_room` WHERE or_tmid = $tmid)";
-        return $fire = mysqli_query($this->conn, $sql); 
+        return $fire = mysqli_query($this->conn, $sql);
     }
 }
 

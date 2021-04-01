@@ -87,7 +87,7 @@ include_once('../../db_queries/Db_queries.php');
                                                         <td> <?= $row['sid']; ?> </td>
                                                         <td> <?= $row['s_fname'] . " " . $row['s_mname'] . " " . $row['s_lname']; ?> </td>
                                                         <td> <a href="http://localhost/itn2/pages/admin_area/pay_installment.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-success"> Pay </button> </a> </td>
-                                                        <td> <a href="http://localhost/itn2/pages/admin_area/student_details.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn2/pages/admin_area/edit_student.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> <a href="../admin_area/select_group.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-info"> Assign Class </button> </a> </td>
+                                                        <td> <a href="http://localhost/itn2/pages/admin_area/student_details.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-primary"> View </button> </a> <a href="http://localhost/itn2/pages/admin_area/edit_student.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-warning"> Edit </button> </a> <a href="../admin_area/assign_group.php?ref=<?= $row['sid']; ?>"> <button class="btn btn-info"> Assign Class </button> </a> </td>
 
                                                     </tr>
 

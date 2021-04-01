@@ -1,17 +1,6 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item nav-profile">
-                        <a href="#" class="nav-link">
-                            <div class="profile-image">
-                                <img class="img-xs rounded-circle" src="../../assets/images/faces/face8.jpg" alt="profile image">
-                                <div class="dot-indicator bg-success"></div>
-                            </div>
-                            <div class="text-wrapper">
-                                <p class="profile-name">Accounts ko Didi</p>
-                                <p class="designation">Accountant</p>
-                            </div>
-                        </a>
-                    </li>
+                    <?php include_once('customUserId.php') ?>
                     <li class="nav-item nav-category">Main Menu</li>
             
                     <li class="nav-item">
