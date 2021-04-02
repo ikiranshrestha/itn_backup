@@ -1,7 +1,18 @@
 <?php
 include_once('../../db_queries/Db_queries.php');
-
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['ref'])) {
+    $gid = $_GET['ref'];
+    $fire = $query->select("tbl_group", "gid", $gid);
+    if(mysqli_num_rows($fire) > 0)
+    {
+        while($row=mysqli_fetch_assoc($fire))
+        {
+            $g_title = $row['g_title'];
+        }
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,52 +62,39 @@ include_once('../../db_queries/Db_queries.php');
             <?php require_once('../../partials/customSidebar.php'); ?>
             <div class="main-panel">
                 <div class="content-wr">
-                    <div class="col-lg-12 stretch-card">
+                    <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Students Table</h4>
-                                <!-- <p class="card-description"> Add class <code>.table-{color}</code> </p> -->
-                                <table class="table table-bordered">
+                                <h4 class="card-title">Group Name: <code class="label"> <?= $g_title; ?> </code></h4>
+                                <p class="card-description"> Students Enrolled in Group</p>
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th> # </th>
-                                            <th> Group Title </th>
-                                            <th> Group Course </th>
-                                            <th> Assigned Trainer </th>
-                                            <th> Assigned Room </th>
-                                            <th> Assigned Time </th>
-                                            <th> No. of Students </th>
+                                            <th> S.no. </th>
+                                            <th> SID </th>
+                                            <th> Student Name </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $fire = $query->pentaJoin("*", "tbl_group", "tbl_courses", "tbl_teacher", "tbl_room", "tbl_time", "g_cid", "g_tid", "g_rid", "g_tmid", "cid", "tid", "rid", "tmid");
-
+                                        // $fire = $query->select("tbl_s_group", "sg_gid", $gid);
+                                        $fire = $query->triJoin("*", "tbl_s_group", "tbl_student", "tbl_group", "sg_sid", "sg_gid", "sid", "gid", "sg_gid", $gid);
+                                        $i = 0;
                                         if (mysqli_num_rows($fire) > 0) {
-                                            $i = 0;
                                             while ($row = mysqli_fetch_assoc($fire)) {
-                                                $gid = $row['gid'];
                                                 $i++;
                                         ?>
+                                                <tr>
 
-                                                <tr class="table-info clickable-row" data-href="http://localhost/itn2/pages/admin_area/class_details.php?ref=<?= $gid; ?>">
-                                                    <td> <?= $i; ?> </td>
-                                                    <td> <?= $row['g_title']; ?> </td>
-                                                    <td> <?= $row['c_name']; ?></td>
-                                                    <td> <?= $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname']; ?></td>
-                                                    <td> <?= $row['r_title']; ?></td>
-                                                    <td> <?= $row['tm_time']; ?></td>
-                                                    <?php
-                                                    $fire2 = $query->getCount("tbl_s_group", "sgid", "sg_gid", $row['gid']);
-                                                    if (mysqli_num_rows($fire2) > 0) {
-                                                        while ($row2 = mysqli_fetch_assoc($fire2)) {
-                                                            $no_of_students = $row2['COUNT(sgid)'];
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <td><?= $no_of_students; ?></td>
-
+                                                    <td>
+                                                        <?= $i; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $row['sg_sid'] ?>
+                                                    </td>
+                                                    <td> <?= $row['s_fname'] . " " . $row['s_mname'] . " " .$row['s_lname']; ?></td>
                                                 </tr>
+                                                <?= "<br/>" ?>
                                         <?php }
                                         }
                                         ?>

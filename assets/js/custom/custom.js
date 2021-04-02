@@ -57,3 +57,14 @@ function loadAvailableClasses() {
 }
 
 loadAvailableClasses();
+
+
+function clickableTableRow() {
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+}
+
+clickableTableRow();

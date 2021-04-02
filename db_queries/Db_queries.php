@@ -32,6 +32,7 @@ class Queries
         } else {
             $sql = "SELECT * from $tblName WHERE $criteria = $criteria_value";
             return $fire = mysqli_query($this->conn, $sql);
+            // return $sql;
         }
     }
 
