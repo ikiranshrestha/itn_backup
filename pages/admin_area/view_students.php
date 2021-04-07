@@ -9,7 +9,7 @@ include_once('../../db_queries/Db_queries.php');
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>IT Training Nepal</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -113,23 +113,11 @@ include_once('../../db_queries/Db_queries.php');
     </div>
     <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script>
-        $("#search").keyup(function() {
-            var value = this.value.toLowerCase().trim();
+    <!-- container-scroller -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script> -->
+    <script src="../../assets/js/custom/jquery.js"></script>
+    <script src="../../assets/js/custom/custom.js"></script>
 
-            $("table tr").each(function(index) {
-                if (!index) return;
-                $(this).find("td").each(function() {
-                    var id = $(this).text().toLowerCase().trim();
-                    var not_found = (id.indexOf(value) == -1);
-                    $(this).closest('tr').toggle(!not_found);
-                    return not_found;
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

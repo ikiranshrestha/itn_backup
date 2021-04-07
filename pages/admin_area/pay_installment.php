@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>IT Training Nepal</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                         <div class="card-body">
                                             <h4 class="card-title">Installment History</h4>
                                             <div>
-                                                <p><strong>Payable Amount: </strong> <?= $payable_amount ?> </p>
+                                                <p><strong>Payable Amount: </strong> Rs. <?= $payable_amount ?>.00 </p>
                                             </div>
                                             <table class="table table-bordered">
                                                 <thead>
@@ -160,11 +160,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                                                 }
                                                             }
                                                             ?>
-                                                            <strong>Total paid:&emsp;&emsp;&emsp;&emsp;&emsp;</strong><?= $totalPaidAmount; ?>
+                                                            <strong>Total paid:&emsp;&emsp;&emsp;&emsp;&emsp;</strong>Rs. <?= $totalPaidAmount; ?>.00
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="3"><strong>Due:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong><?= ($payable_amount - $totalPaidAmount) ?></td>
+                                                        <td colspan="3"><strong>Due:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong>Rs. <?= ($payable_amount - $totalPaidAmount) ?>.00</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

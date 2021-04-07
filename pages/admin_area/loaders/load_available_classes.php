@@ -15,7 +15,7 @@ function getAvailableClasses()
             }
             echo $optn;
         }else {
-            echo $optn .= "<option value =". $row['gid'] . ">" .$no_class_available . "</option>";
+            echo $optn .= "<option>" .$no_class_available . "</option>";
         }
     }
 }

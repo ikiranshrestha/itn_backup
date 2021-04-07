@@ -9,7 +9,7 @@ include_once('../../db_queries/Db_queries.php');
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>IT Training Nepal</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -54,6 +54,14 @@ include_once('../../db_queries/Db_queries.php');
                     <div class="col-lg-12 stretch-card">
                         <div class="card">
                             <div class="card-body">
+                                <!-- Searchbar start -->
+
+                                <div class="input-group col-sm-8">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" id="search" aria-describedby="search-addon" />
+                                    <button type="button" class="btn btn-outline-primary">search</button>
+                                </div>
+
+                                <!--  Searchbar end -->
                                 <h4 class="card-title">Students Table</h4>
                                 <!-- <p class="card-description"> Add class <code>.table-{color}</code> </p> -->
                                 <table class="table table-bordered">
