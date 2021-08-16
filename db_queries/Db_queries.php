@@ -30,10 +30,18 @@ class Queries
             $sql = "SELECT * from $tblName";
             return $fire = mysqli_query($this->conn, $sql);
         } else {
-            $sql = "SELECT * from $tblName WHERE $criteria = $criteria_value";
+            $sql = "SELECT * from $tblName WHERE $criteria = '$criteria_value'";
             return $fire = mysqli_query($this->conn, $sql);
             // return $sql;
         }
+    }
+    function selectUser($tblName, $criteria0, $criteria0_value, $criteria1, $criteria1_value)
+    {
+        
+            $sql = "SELECT * from $tblName WHERE $criteria0 = '$criteria0_value' AND $criteria1 = '$criteria1_value'";
+            return $fire = mysqli_query($this->conn, $sql);
+            // return $sql; 
+        
     }
 
     function update($tblName, $data, $criteria, $criteria_value)

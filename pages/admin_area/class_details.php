@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!$_SESSION['uname']){
+    header('Location: ../../login.php');
+}
 include_once('../../db_queries/Db_queries.php');
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['ref'])) {
     $gid = $_GET['ref'];

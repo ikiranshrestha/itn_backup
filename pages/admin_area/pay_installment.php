@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!$_SESSION['uname']){
+    header('Location: ../../login.php');
+}
 include_once('../../db_queries/Db_queries.php');
 include_once('../../config/config.php');
 // $sid = 19;
@@ -7,12 +11,14 @@ $sid = $_GET['ref'];
 $fire = '';
 $aid = '';
 $payable_amount = '';
+$s_name;
 
-$fire = $query->dualJoin("aid, a_payable_amount", "tbl_admission", "tbl_student", "a_sid", "sid", "a_sid" , $sid);
+$fire = $query->dualJoin("aid, a_payable_amount, s_fname, s_lname, s_mname", "tbl_admission", "tbl_student", "a_sid", "sid", "a_sid" , $sid);
 if (mysqli_num_rows($fire)) {
     while ($row = mysqli_fetch_assoc($fire)) {
         $aid = $row['aid'];
         $payable_amount = $row['a_payable_amount'];
+        $s_name = strtoupper($row['s_lname']) . ', ' . $row['s_fname'] . " " . $row['s_mname'];
     }
 
     $_POST['i_aid'] = $aid;
@@ -83,7 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Installment</h4>
+                                            <h4 class="card-title">Installments for 
+                                                <span class ="alert alert-success"><?= $s_name ?></span> </h4>
                                             <p class="card-description"> Fee Installment </p>
 
                                             <div class="form-group row">

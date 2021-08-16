@@ -8,6 +8,10 @@
 //         header('location: http://localhost/itn/pages/forms/view_courses.php');
 //     }
 // }
+session_start();
+if(!$_SESSION['uname']){
+    header('Location: login.php');
+}
 
 ?>
 
