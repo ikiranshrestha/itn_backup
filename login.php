@@ -11,13 +11,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
 	// echo $fire;
 	// exit();
 	if(mysqli_num_rows($fire)){
-		session_start();
-		$_SESSION['uname'] = $u_name;
-		if($_SESSION['uname']){
-			header('Location: index.php');
-			exit();
+		while($row = mysqli_fetch_assoc($fire))
+		{
+			$fullname = strtoupper($row['u_lname']) . ", " . $row['u_fname'] . " " . $row['u_mname'];
+			$designation = $row['designation'];
+			
+			session_start();
+			$_SESSION['uname'] = $u_name;
+			$_SESSION['fullname'] = $fullname;
+			$_SESSION['designation'] = $designation;
+			
+			if($_SESSION['uname'])
+			{
+				header('Location: index.php');
+				exit();
+			}	
 		}
-	}else{
+	}else
+	{
 		echo "not hello";
 	}
 }

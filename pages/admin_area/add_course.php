@@ -1,4 +1,6 @@
 <?php
+require_once('../../validate/validate_login.php');
+
 require_once('../../db_queries/Db_queries.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $data = $_POST;

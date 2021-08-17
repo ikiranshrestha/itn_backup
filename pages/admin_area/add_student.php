@@ -1,8 +1,5 @@
 <?php
-session_start();
-if(!$_SESSION['uname']){
-    header('Location: ../../login.php');
-}
+require_once('../../validate/validate_login.php');
 //Admission Table must contain fields - aid, a_sid, a_payable_amount, a_date
 //installment Table must contain fields - iid, i_title, i_amount, i_date, i_aid
 

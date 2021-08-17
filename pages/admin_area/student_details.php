@@ -1,8 +1,5 @@
 <?php
-session_start();
-if(!$_SESSION['uname']){
-    header('Location: ../../login.php');
-}
+require_once('../../validate/validate_login.php');
 include_once('../../db_queries/Db_queries.php');
 
 $sid = $_GET['ref'];
