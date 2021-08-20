@@ -9,15 +9,15 @@ function getTrainer()
 
 
         $fire = $query->select("tbl_teacher", "t_cid", $cid);
-        $optn = "";
+        // $optn = "";
         if (mysqli_num_rows($fire) > 0) {
             while ($row = mysqli_fetch_assoc($fire)) {
                 $t_name = $row['t_fname'] . " " . $row['t_mname'] . " " . $row['t_lname'];
-                $optn .= "<option value =" . $row['tid'] . ">" . $t_name . "</option>";
+                $optn = "<option value =" . $row['tid'] . ">" . $t_name . "</option>";
                 echo $optn;
             }
         } else {
-            echo $optn .= "<option>" . $no_trainer_available . "</option>";
+            echo $optn = "<option>" . $no_trainer_available . "</option>";
         }
     }
 }

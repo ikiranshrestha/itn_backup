@@ -1,4 +1,5 @@
 <?php
+$hasError = false;
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
 {
 	$u_name = $_POST['u_name'];
@@ -29,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
 		}
 	}else
 	{
-		echo "not hello";
+		$hasError = true;
 	}
 }
 ?>
@@ -91,12 +92,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
 							Sign in
 						</button>
 					</div>
+
+					<?php
+							if($hasError == true)
+							{?>
+								<span class="alert alert-danger" style="margin-top: 25px; margin-left: auto; margin-right: auto; ">
+									<p style="color: red;"><i class="fa fa-exclamation-circle"></i> Invalid username or password!</p>
+								</span>
+
+							<?php }
+							?>
+
 					
-					<div class="text-center w-full p-t-23">
+					<!-- <div class="text-center w-full p-t-23">
 						<a href="#" class="txt1">
 							Forgot password?
 						</a>
-					</div>
+					</div> -->
 				</form>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ $fire = '';
 $aid = '';
 $payable_amount = '';
 $s_name;
+$totalPaidAmount;
 
 $fire = $query->dualJoin("aid, a_payable_amount, s_fname, s_lname, s_mname", "tbl_admission", "tbl_student", "a_sid", "sid", "a_sid" , $sid);
 if (mysqli_num_rows($fire)) {
@@ -20,12 +21,12 @@ if (mysqli_num_rows($fire)) {
 
     $_POST['i_aid'] = $aid;
     $data = $_POST;
-}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
 
-    $fire = $query->insert("tbl_installments", $data);
-    header('location: http://localhost/itn2/pages/admin_area/view_students.php');
+        $fire = $query->insert("tbl_installments", $data);
+        header('location: http://localhost/itn2/pages/admin_area/view_students.php');
+    }
 }
 
 
@@ -82,45 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                     <form class="forms-sample" method="POST">
                         <div class="col-12" style="margin-bottom: 50px;">
                             <div class="row">
-                                <div class="col-sm-8">
-
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Installments for 
-                                                <span class ="alert alert-success"><?= $s_name ?></span> </h4>
-                                            <p class="card-description"> Fee Installment </p>
-
-                                            <div class="form-group row">
-                                                <label for="i_title" class="col-sm-3 col-form-label">Installment Title</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_title" id="i_title" placeholder="eg.second installment">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="i_amount" class="col-sm-3 col-form-label">Installment Amount</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control" name="i_amount" id="i_amount" placeholder="Installment Amount" min="0">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="i_date" class="col-sm-3 col-form-label">Installment Date</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_date" id="i_date" value="<?= date('Y-m-d') ?>" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_aid" id="i_date" hidden>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-success mr-2" name="pay">Submit</button>
-
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <div class="col-sm-4">
+                            <div class="col-sm-4">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Installment History</h4>
@@ -173,6 +138,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-8">
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <?php if($totalPaidAmount < $payable_amount){ ?>
+                                            <h4 class="card-title">Installments for 
+                                                <span class ="alert alert-success"><?= $s_name ?></span> </h4>
+                                            <p class="card-description"> Fee Installment </p>
+
+                                            <div class="form-group row">
+                                                <label for="i_title" class="col-sm-3 col-form-label">Installment Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_title" id="i_title" placeholder="eg.second installment">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_amount" class="col-sm-3 col-form-label">Installment Amount</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="i_amount" id="i_amount" placeholder="Installment Amount" min="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_date" class="col-sm-3 col-form-label">Installment Date</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_date" id="i_date" value="<?= date('Y-m-d') ?>" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_aid" id="i_date" hidden>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success mr-2" name="pay">Submit</button>
+
+                                        </div>
+                                        <?php }
+                                        else{ ?>
+                                            <h4 class="card-title">Installments for 
+                                            <span class ="alert alert-success"><?= $s_name ?></span> </h4>
+                                            <p class="card-description"> Fee Installment </p>
+                                            <div class="form-group row">
+                                                <label for="i_title" class="col-sm-3 col-form-label">Installment Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_title" id="i_title" placeholder="eg.second installment" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_amount" class="col-sm-3 col-form-label">Installment Amount</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="i_amount" id="i_amount" placeholder="Installment Amount" min="0" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="i_date" class="col-sm-3 col-form-label">Installment Date</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="i_date" id="i_date" value="<?= date('Y-m-d') ?>" readonly disabled>
+                                                </div>
+                                            </div>
+                                            <span class ="alert alert-danger" style="margin-top: 100px;">No Dues Pending!</span>
+                                            <!-- <button type="submit" class="btn btn-success mr-2" name="pay" disabled>Submit</button> -->
+                                            <?php } ?>
                                     </div>
                                 </div>
 
