@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_group'])) {
                                         <div class="col-sm-9">
                                             <div class="col-12">
                                                 <select name="g_cid" id="g_cid" class="form-control form-control-lg">
-                                                <option value="" selected disabled>--Select Course--</option>
+                                                    <option value="" selected disabled>--Select Course--</option>
                                                     <?php
                                                     $fire2 = $query->dualJoin("*", "tbl_admission", "tbl_courses", "a_cid", "cid", "tbl_admission.a_sid", $sid);
                                                     if (mysqli_num_rows($fire2) > 0) {

@@ -97,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login']))
 							if($hasError == true)
 							{?>
 								<span class="alert alert-danger" style="margin-top: 25px; margin-left: auto; margin-right: auto; ">
-									<p style="color: red;"><i class="fa fa-exclamation-circle"></i> Invalid username or password!</p>
+									<p style="color: red;"><i class="fa fa-exclamation-circle"></i> Invalid username or password! Contact your IT Officer, if password forgotten.</p>
 								</span>
 
 							<?php }

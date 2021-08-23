@@ -76,7 +76,6 @@ include_once('../../db_queries/Db_queries.php');
                                                     <td> <?= $row['cid']; ?> </td>
                                                     <td> <?= $row['c_name']; ?> </td>
                                                     <td> Rs. <?= $row['c_cost']; ?>.00 </td>
-
                                                     <?php
                                                     $c_status = $row['c_status'];
                                                     if ($c_status == "available") { ?>

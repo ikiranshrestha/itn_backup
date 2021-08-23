@@ -37,11 +37,11 @@ class Queries
     }
     function selectUser($tblName, $criteria0, $criteria0_value, $criteria1, $criteria1_value)
     {
-        
-            $sql = "SELECT * from $tblName WHERE $criteria0 = '$criteria0_value' AND $criteria1 = '$criteria1_value'";
-            return $fire = mysqli_query($this->conn, $sql);
-            // return $sql; 
-        
+
+        $sql = "SELECT * from $tblName WHERE $criteria0 = '$criteria0_value' AND $criteria1 = '$criteria1_value'";
+        return $fire = mysqli_query($this->conn, $sql);
+        // return $sql; 
+
     }
 
     function update($tblName, $data, $criteria, $criteria_value)
@@ -88,7 +88,6 @@ class Queries
             INNER JOIN $tbl2_name ON $base_tbl.$base_tbl2_fk = $tbl2_name.$tbl2_pk) WHERE $criteria = $criteria_value";
             return $fire = mysqli_query($this->conn, $sql);
             // return $sql;
-
         }
     }
 
